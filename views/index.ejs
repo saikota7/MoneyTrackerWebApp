@@ -1,0 +1,53 @@
+<!-- views/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Money Tracker</title>
+</head>
+<!-- views/index.html -->
+
+<!-- views/index.ejs -->
+
+<body>
+  <h1>Money Tracker</h1>
+
+  <form action="/transactions" method="post">
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" required>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required>
+
+    <label for="type">Type:</label>
+    <select id="type" name="type" required>
+      <option value="expense">Expense</option>
+      <option value="income">Income</option>
+    </select>
+
+    <button type="submit">Add Transaction</button>
+  </form>
+
+  <div>
+  <h2>Transactions</h2>
+  <ul>
+    <% transactions.forEach(transaction => { %>
+      <li>
+        <%= transaction.description %> - <%= transaction.amount %> (<%= transaction.type %>)
+        <form action="/transactions/<%= transaction._id %>?_method=DELETE" method="post" style="display:inline;">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Add any additional scripts here -->
+</body>
+
+</html>
